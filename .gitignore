@@ -1,0 +1,17 @@
+# Ignore
+/*
+
+# Mac
+.DS_Store
+
+# Jetbrains
+.idea
+*.iml
+
+# Custom
+volumes
+!compose
+!resources
+!util
+!.gitignore
+!globals
