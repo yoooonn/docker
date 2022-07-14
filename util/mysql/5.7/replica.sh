@@ -6,11 +6,12 @@ set -eu
 #WORK_DIR
 #VOLUMES_DIR
 
-docker stop mmysql > /dev/null && docker rm mmysql > /dev/null
-docker stop smysql > /dev/null && docker rm smysql > /dev/null
+docker network create mysql-cluster > /dev/null || echo 'Network 'mysql-cluster' already exist. Skip create it.'
 
-docker run -d -p 13306:3306 \
+docker run --rm -d -p 13306:3306 \
         --name mmysql \
+        --network mysql-cluster \
+        --network-alias mmysql \
         -e 'MYSQL_ROOT_PASSWORD=root'\
         -v "$VOLUMES_DIR"/"$DIR"/data/db:/var/lib/mysql \
         -v "$VOLUMES_DIR"/"$DIR"/data/conf:/etc/mysql/conf.d \
@@ -18,8 +19,10 @@ docker run -d -p 13306:3306 \
         mysql:5.7
 
 
-docker run -d -p 13307:3306 \
+docker run --rm -d -p 13307:3306 \
         --name smysql \
+        --network mysql-cluster \
+        --network-alias smysql \
         -e 'MYSQL_ROOT_PASSWORD=root'\
         -v "$VOLUMES_DIR"/"$DIR"/sdata/db:/var/lib/mysql \
         -v "$VOLUMES_DIR"/"$DIR"/sdata/conf:/etc/mysql/conf.d \
