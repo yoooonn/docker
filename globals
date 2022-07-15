@@ -2,19 +2,22 @@
 # author: yooonn
 
 function find_dir() {
-  find_dir0 "$(cd "$(dirname "$1")" || exit 1; pwd)"
+  find_dir0 "$(
+    cd "$(dirname "$1")" || exit 1
+    pwd
+  )"
 }
 
 function find_dir0() {
   parent=$(dirname "$1")
   if [ "$parent" = "$HOME" ]; then
-      echo "Cannot not deduce Work dir and Volumes dir."
-      exit 1
+    echo "Cannot not deduce Work dir and Volumes dir."
+    exit 1
   fi
   code=0
-  ls "$parent"/.git > /dev/null 2>&1 || code=1
+  ls "$parent"/.git >/dev/null 2>&1 || code=1
   if [ "$code" -eq 0 ]; then
-#    echo "Find work dir: $parent"
+    #    echo "Find work dir: $parent"
     WORK_DIR="$parent"
     mkdir -p "$parent/volumes" || exit 1
     VOLUMES_DIR="$parent/volumes"

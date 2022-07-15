@@ -4,7 +4,7 @@ set -eu
 # shellcheck source=/dev/null
 source ./globals
 
-image=mysql:5.7
+image=mysql:8.0
 
 #WORK_DIR
 #VOLUMES_DIR
