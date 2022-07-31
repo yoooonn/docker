@@ -18,14 +18,16 @@ function find_dir0() {
   ls "$parent"/.git >/dev/null 2>&1 || code=1
   if [ "$code" -eq 0 ]; then
     #    echo "Find work dir: $parent"
+    # shellcheck disable=SC2034
     WORK_DIR="$parent"
     mkdir -p "$parent/volumes" || exit 1
+    # shellcheck disable=SC2034
     VOLUMES_DIR="$parent/volumes"
   else
     find_dir0 "$(dirname "$parent")"
   fi
 }
-
+# shellcheck disable=SC2034
 DIR=$(dirname "$0")
 
 find_dir "$0"

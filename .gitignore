@@ -9,7 +9,6 @@
 *.iml
 
 # Custom
-volumes
 !compose
 !resources
 !util

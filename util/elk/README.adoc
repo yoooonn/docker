@@ -1,0 +1,37 @@
+= elastic
+
+== analysis ik
+
+https://github.com/medcl/elasticsearch-analysis-ik[analysis ik github]
+
+[source,shell,indent=0]
+----
+./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.13.4/elasticsearch-analysis-ik-7.13.4.zip
+----
+
+== Set up minimal security for Elasticsearch
+
+[source,shell,indent=0]
+----
+# config es
+# add to elasticsearch.yml
+xpack.security.enabled: true
+
+# if run in single mode, add continue
+discovery.type: single-node
+
+# execute when es is up
+./bin/elasticsearch-setup-passwords auto
+
+# config kibana
+# add to kibana.yml
+elasticsearch.username: "kibana_system"
+
+# create kibana keystore
+./bin/kibana-keystore create
+
+# add password for 'kibana_system'
+./bin/kibana-keystore add elasticsearch.password
+
+# restart es, kibana
+----
