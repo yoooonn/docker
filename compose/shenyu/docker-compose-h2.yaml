@@ -18,7 +18,7 @@
 version: "3"
 services:
   shenyu-bootstrap:
-    image: apache/shenyu-bootstrap:latest
+    image: apache/shenyu-bootstrap:${SHENYU_VERSION}
     container_name: shenyu-bootstrap
     ports:
     - "9195:9195"
@@ -32,7 +32,7 @@ services:
     environment:
       - shenyu.sync.websocket.urls=ws://admin:9095/websocket
   shenyu-admin:
-    image: apache/shenyu-admin:latest
+    image: apache/shenyu-admin:${SHENYU_VERSION}
     container_name: shenyu-admin
     volumes:
     - ./shenyu-admin/logs/:/opt/shenyu-admin/logs
