@@ -19,7 +19,7 @@ version: "2.1"
 services:
   shenyu-bootstrap:
     image: apache/shenyu-bootstrap:${SHENYU_VERSION}
-    container_name: shenyu-bootstrap
+    container_name: sybt
     ports:
       - "9195:9195"
     volumes:
@@ -33,7 +33,7 @@ services:
       - shenyu.sync.websocket.urls=ws://admin:9095/websocket
   shenyu-admin:
     image: apache/shenyu-admin:${SHENYU_VERSION}
-    container_name: shenyu-admin
+    container_name: syadmin
     environment:
       - spring.profiles.active=mysql
       - spring.datasource.url=jdbc:mysql://db:3306/shenyu?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -52,7 +52,7 @@ services:
         condition: service_healthy
   db:
     image: docker.io/mysql:5.7
-    container_name: db
+    container_name: sydb
     environment:
       MYSQL_ROOT_PASSWORD: xyzj1a2y3
       MYSQL_DATABASE: shenyu
