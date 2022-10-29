@@ -18,9 +18,9 @@ docker run --rm -d -p 13306:3306 \
         --network mysql-cluster \
         --network-alias mmysql \
         -e 'MYSQL_ROOT_PASSWORD=root' \
-        -v "$VOLUMES_DIR"/"$DIR"/data/db:/var/lib/mysql \
-        -v "$VOLUMES_DIR"/"$DIR"/data/conf:/etc/mysql/conf.d \
-        -v "$VOLUMES_DIR"/"$DIR"/log:/var/log/mysql \
+        -v "$VOLUMES_DIR"/"$SH_DIR"/data/db:/var/lib/mysql \
+        -v "$VOLUMES_DIR"/"$SH_DIR"/data/conf:/etc/mysql/conf.d \
+        -v "$VOLUMES_DIR"/"$SH_DIR"/log:/var/log/mysql \
         "$image"
 
 docker run --rm -d -p 13307:3306 \
@@ -28,8 +28,8 @@ docker run --rm -d -p 13307:3306 \
         --network mysql-cluster \
         --network-alias smysql \
         -e 'MYSQL_ROOT_PASSWORD=root' \
-        -v "$VOLUMES_DIR"/"$DIR"/sdata/db:/var/lib/mysql \
-        -v "$VOLUMES_DIR"/"$DIR"/sdata/conf:/etc/mysql/conf.d \
-        -v "$VOLUMES_DIR"/"$DIR"/slog:/var/log/mysql \
+        -v "$VOLUMES_DIR"/"$SH_DIR"/sdata/db:/var/lib/mysql \
+        -v "$VOLUMES_DIR"/"$SH_DIR"/sdata/conf:/etc/mysql/conf.d \
+        -v "$VOLUMES_DIR"/"$SH_DIR"/slog:/var/log/mysql \
         "$image" \
         mysqld --skip-slave-start --character-set-server=utf8 --collation-server=utf8_unicode_ci

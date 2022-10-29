@@ -35,3 +35,17 @@ elasticsearch.username: "kibana_system"
 
 # restart es, kibana
 ----
+
+== Request rest api
+
+如果设置了minimal security, 需要用户名/密码方可有权限操作.
+
+请求REST API时, 可以指定用户名密码:
+
+curl --user USER:PASSWD ...
+
+也可 https://www.elastic.co/guide/en/elasticsearch/reference/7.13/security-api-create-service-token.html[请求一个token], 并指定该token进行后续的REST API请求, 比如使用超级管理员请求一个名为token1的token
+
+curl --user elastic:PASSWD -X POST "localhost:9200/_security/service/elastic/fleet-server/credential/token/token1?pretty"
+
+这里的elastic是Elastic stack的默认super root name.

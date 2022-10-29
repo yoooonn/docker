@@ -19,13 +19,13 @@ docker run -d -p 9200:9200 -p 9300:9300 \
   --name es01 --restart=unless-stopped \
   --network elastic \
   --network-alias es01 \
-  -v "$VOLUMES_DIR"/"$DIR"/es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+  -v "$VOLUMES_DIR"/"$SH_DIR"/es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
   -e "discovery.type=single-node" \
   "$image"
 
 docker run -d -p 5601:5601 \
   --name ki01 --restart=unless-stopped \
   --network elastic \
-  -v "$VOLUMES_DIR"/"$DIR"/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml \
+  -v "$VOLUMES_DIR"/"$SH_DIR"/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml \
   -e "ELASTICSEARCH_HOSTS=http://es01:9200" \
   "$kibana_image"
