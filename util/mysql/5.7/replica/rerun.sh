@@ -3,8 +3,8 @@
 set -eu
 . ./globals
 
-#WORK_DIR
-#VOLUMES_DIR
+# ROOT_DIR
+# VOLUMES_DIR
 
 echo 'Create network'
 docker network create mysql-cluster 2> /dev/null || echo 'Network 'mysql-cluster' already exist. Skip create it.'

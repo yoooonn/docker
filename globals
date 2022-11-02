@@ -9,7 +9,7 @@ function find_dir() {
 }
 
 function find_dir0() {
-  parent=$(dirname "$1")
+  parent="$1"
   if [ "${#parent}" -le "${#HOME}" ]; then
     echo "Cannot not deduce Work dir and Volumes dir."
     exit 1
@@ -17,17 +17,31 @@ function find_dir0() {
   code=0
   ls "$parent"/.git >/dev/null 2>&1 || code=1
   if [ "$code" -eq 0 ]; then
-    #    echo "Find work dir: $parent"
-    # shellcheck disable=SC2034
-    WORK_DIR="$parent"
+    root_dir="$parent"
     mkdir -p "$parent/volumes" || exit 1
-    # shellcheck disable=SC2034
-    VOLUMES_DIR="$parent/volumes"
+    volumes_dir="$parent/volumes"
   else
-    find_dir0 "$parent"
+    find_dir0 "$(dirname "$parent")"
   fi
 }
-# shellcheck disable=SC2034
-SH_DIR=$(dirname "$0")
+
+sh_dir=$(dirname "$0")
+root_dir=""
+volumes_dir=""
 
 find_dir "$0"
+
+# Global variables
+# SH_DIR
+# ROOT_DIR
+# VOLUMES_DIR
+# DOCKER_NETWORK
+
+# shellcheck disable=SC2034
+SH_DIR="$sh_dir"
+# shellcheck disable=SC2034
+ROOT_DIR="$root_dir"
+# shellcheck disable=SC2034
+VOLUMES_DIR="$volumes_dir"
+# shellcheck disable=SC2034
+DOCKER_NETWORK="netyooonn"

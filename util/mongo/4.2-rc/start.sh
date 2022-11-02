@@ -6,8 +6,8 @@ source ./globals
 
 image=mongo:4.2-rc
 
-#WORK_DIR
-#VOLUMES_DIR
+# ROOT_DIR
+# VOLUMES_DIR
 
 docker run --rm -d -p 27017:27017 \
         --name mongo \

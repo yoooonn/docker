@@ -6,8 +6,8 @@ source ./globals
 
 image=mysql:8.0
 
-#WORK_DIR
-#VOLUMES_DIR
+# ROOT_DIR
+# VOLUMES_DIR
 
 docker network create mysql-cluster >/dev/null 2>&1 || echo 'Network 'mysql-cluster' already exist. Skip create it.'
 

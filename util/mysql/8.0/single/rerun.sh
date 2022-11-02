@@ -6,9 +6,9 @@ source ./globals
 
 image=mysql:8.0
 
-#SH_DIR
-#VOLUMES_DIR
-#WORK_DIR
+# SH_DIR
+# VOLUMES_DIR
+# ROOT_DIR
 
 container_name=mysql-l-8
 

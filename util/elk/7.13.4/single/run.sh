@@ -9,7 +9,7 @@ source ./globals
 image=docker.elastic.co/elasticsearch/elasticsearch:7.13.4-arm64
 kibana_image=docker.elastic.co/kibana/kibana:7.13.4-arm64
 
-#WORK_DIR
+#ROOT_DIR
 #VOLUMES_DIR
 
 #docker ps -a | grep "es01" >/dev/null 2>&1 && docker restart es01
