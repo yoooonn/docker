@@ -2,27 +2,30 @@ version: "2"
 services:
   nacos:
     image: nacos/nacos-server:${NACOS_VERSION}
-    container_name: nacos-standalone-mysql
-    env_file:
-      - ../env/nacos-standlone-mysql.env
+    container_name: nacos-standalone-mysql8
+#    env_file:
+#      - ../env/nacos-standlone-mysql.env
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=${MYSQL_ALIAS}
+      - MYSQL_SERVICE_DB_NAME=nacos_devtest
+      - MYSQL_SERVICE_PORT=${MYSQL_PORT}
+      - MYSQL_SERVICE_USER=${MYSQL_USER}
+      - MYSQL_SERVICE_PASSWORD=${MYSQL_PASSWD}
+      - MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false
     volumes:
-      - ./standalone-logs/:/home/nacos/logs
-      - ./init.d/custom.properties:/home/nacos/init.d/custom.properties
+      - ${VOLUMES}/standalone-mysql-8/standalone-logs/:/home/nacos/logs
+      - ${VOLUMES}/standalone-mysql-8/init.d/custom.properties:/home/nacos/init.d/custom.properties
     ports:
       - "8848:8848"
       - "9848:9848"
       - "9555:9555"
-    depends_on:
-      - mysql
-    restart: always
-  mysql:
-    container_name: mysql
-    image: nacos/nacos-mysql:8.0.16
-    env_file:
-      - ../env/mysql.env
-    volumes:
-      - ./mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
-
-
+    networks:
+      netyooonn:
+        aliases:
+          - ${NACOS_ALIAS}
+networks:
+  netyooonn:
+    driver: bridge
