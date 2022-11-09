@@ -16,7 +16,7 @@ source ./globals
 # MYSQL_PASSWD
 # MYSQL_PORT
 
-container_name=mysql-l-8
+container_name=mysql8
 image=mysql:8.0
 
 assert_container_not_exist $container_name

@@ -18,7 +18,7 @@
 version: "2.1"
 services:
   shenyu-bootstrap:
-    image: apache/shenyu-bootstrap:latest
+    image: apache/shenyu-bootstrap:2.4.3
     container_name: shenyu-bootstrap
     ports:
       - "9195:9195"

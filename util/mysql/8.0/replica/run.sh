@@ -4,32 +4,34 @@ set -eu
 # shellcheck source=/dev/null
 source ./globals
 
-image=mysql:8.0
-
 # ROOT_DIR
 # VOLUMES_DIR
 
-docker network create mysql-cluster >/dev/null 2>&1 || echo 'Network 'mysql-cluster' already exist. Skip create it.'
+image=mysql:8.0
+target_network=mysql-cluster
 
-docker stop mmysql smysql 2>/dev/null || echo 'Running...'
+create_network_if_absent $target_network
 
-docker run --rm -d -p 13306:3306 \
-        --name mmysql \
-        --network mysql-cluster \
-        --network-alias mmysql \
+assert_container_not_exist mmysql8
+assert_container_not_exist smysql8
+
+docker run -d -p 23306:3306 \
+        --name mmysql8 \
+        --network $target_network \
+        --network-alias mmysql8 \
         -e 'MYSQL_ROOT_PASSWORD=root' \
         -v "$VOLUMES_DIR"/"$SH_DIR"/data/db:/var/lib/mysql \
         -v "$VOLUMES_DIR"/"$SH_DIR"/data/conf:/etc/mysql/conf.d \
         -v "$VOLUMES_DIR"/"$SH_DIR"/log:/var/log/mysql \
         "$image"
 
-docker run --rm -d -p 13307:3306 \
-        --name smysql \
-        --network mysql-cluster \
-        --network-alias smysql \
+docker run -d -p 23307:3306 \
+        --name smysql8 \
+        --network $target_network \
+        --network-alias smysql8 \
         -e 'MYSQL_ROOT_PASSWORD=root' \
         -v "$VOLUMES_DIR"/"$SH_DIR"/sdata/db:/var/lib/mysql \
         -v "$VOLUMES_DIR"/"$SH_DIR"/sdata/conf:/etc/mysql/conf.d \
         -v "$VOLUMES_DIR"/"$SH_DIR"/slog:/var/log/mysql \
         "$image" \
-        mysqld --skip-slave-start --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        mysqld --skip-slave-start --character-set-server=utf8mb4 --collation-server=utf8_unicode_ci
