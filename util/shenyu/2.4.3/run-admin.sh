@@ -17,28 +17,28 @@ source ./globals
 # G_MYSQL_PASSWD
 # G_MYSQL8_PORT
 
-container_name=nacos
-image=nacos/nacos-server:v2.1.2-slim
+container_name=syadmin
+image=apache/shenyu-admin:2.4.3
 
 assert_container_not_exist $container_name
 
-create_network_if_absent "$G_MYSQL_NETWORK"
+create_network_if_absent "$MYSQL_NETWORK"
 
 docker run -d \
-  -p 8869:8848 \
-  -p 9869:9848 \
-  -p 9576:9555 \
-  --network "$G_MYSQL_NETWORK" \
-  --network-alias "$G_NACOS_ALIAS" \
+  -p 8848:8848 \
+  -p 9848:9848 \
+  -p 9555:9555 \
+  --name "$container_name" \
+  --network "$MYSQL_NETWORK" \
+  --network-alias "$NACOS_ALIAS" \
   -e PREFER_HOST_MODE=hostname \
   -e MODE=standalone \
   -e SPRING_DATASOURCE_PLATFORM=mysql \
   -e MYSQL_SERVICE_HOST="$G_MYSQL8_ALIAS" \
   -e MYSQL_SERVICE_PORT=3306 \
-  -e MYSQL_SERVICE_USER="$G_MYSQL_USER" \
-  -e MYSQL_SERVICE_PASSWORD="$G_MYSQL_PASSWD" \
+  -e MYSQL_SERVICE_USER="$MYSQL_USER" \
+  -e MYSQL_SERVICE_PASSWORD="$MYSQL_PASSWD" \
   -e MYSQL_SERVICE_DB_NAME=nacos_devtest \
   -v "$VOLUMES_DIR"/"$SH_DIR"/standalone-logs/:/home/nacos/logs \
-  --name "$container_name" \
   "$image"
 #  -v "$VOLUMES_DIR"/"$SH_DIR"/conf/:/home/nacos/conf \

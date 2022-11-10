@@ -7,7 +7,7 @@ source ./globals
 # SH_DIR
 # VOLUMES_DIR
 # ROOT_DIR
-# YOO_NETWORK
+# G_YOO_NETWORK
 
 for cn in "$@"
 do

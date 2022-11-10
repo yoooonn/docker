@@ -8,27 +8,28 @@ source ./globals
 # SH_DIR
 # ROOT_DIR
 # VOLUMES_DIR
-# YOO_NETWORK
-# MYSQL_NETWORK
-# MYSQL_ALIAS
-# NACOS_ALIAS
-# MYSQL_USER
-# MYSQL_PASSWD
-# MYSQL_PORT
+# G_YOO_NETWORK
+# G_MYSQL_NETWORK
+# G_MYSQL8_ALIAS
+# G_MYSQL8_CONTAINER
+# G_NACOS_ALIAS
+# G_MYSQL_USER
+# G_MYSQL_PASSWD
+# G_MYSQL8_PORT
 
-container_name=mysql8
+container_name=$G_MYSQL8_CONTAINER
 image=mysql:8.0
 
-assert_container_not_exist $container_name
+assert_container_not_exist "$container_name"
 
-create_network_if_absent "$YOO_NETWORK"
+create_network_if_absent "$G_MYSQL_NETWORK"
 
-docker run -d -p "$MYSQL_PORT":3306 \
-        --name "$container_name" \
-        --network "$MYSQL_NETWORK" \
-        --network-alias "$MYSQL_ALIAS" \
-        -e "MYSQL_ROOT_PASSWORD=$MYSQL_PASSWD" \
+docker run -d -p "$G_MYSQL8_PORT":3306 \
+        --network "$G_MYSQL_NETWORK" \
+        --network-alias "$G_MYSQL8_ALIAS" \
+        -e "MYSQL_ROOT_PASSWORD=$G_MYSQL_PASSWD" \
         -v "$VOLUMES_DIR"/"$SH_DIR"/data/db:/var/lib/mysql \
         -v "$VOLUMES_DIR"/"$SH_DIR"/data/conf:/etc/mysql/conf.d \
         -v "$VOLUMES_DIR"/"$SH_DIR"/log:/var/log/mysql \
+        --name "$container_name" \
         "$image"
