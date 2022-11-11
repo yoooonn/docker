@@ -47,7 +47,7 @@ docker run -d \
   -e MYSQL_SERVICE_PORT=3306 \
   -e MYSQL_SERVICE_USER="$G_MYSQL_USER" \
   -e MYSQL_SERVICE_PASSWORD="$G_MYSQL_PASSWD" \
-  -e MYSQL_SERVICE_DB_NAME=nacos_devtest \
+  -e MYSQL_SERVICE_DB_NAME="$db" \
   -v "$VOLUMES_DIR"/"$SH_DIR"/standalone-logs/:/home/nacos/logs \
   --name "$container_name" \
   "$image"
