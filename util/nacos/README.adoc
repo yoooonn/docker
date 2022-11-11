@@ -1,0 +1,23 @@
+NOTE: ``nacos/nacos-server``提供了``PREFER_HOST_MODE``, 支持``hostname``和``ip``两种模式, 在不同的模式下指定mysql host的值不同!
+
+
+hostname和ip是一一对应的关系
+
+通过ip查hostname
+
+[source,bash,indent=0]
+----
+nslookup <ip>
+
+# 执行后，会收到权威和非权威的应答
+----
+
+通过hostname查ip
+
+[source,bash,indent=0]
+----
+ping <hostname>
+
+# ping <ip>和ping <hostname>都是判断是否通路的方式，后者记录包收发同时，
+# 会打印hostname对应的ip，所以我们利用这一信息，就能知道hostname背后的ip了
+----

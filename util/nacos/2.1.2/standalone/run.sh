@@ -19,6 +19,7 @@ source ./globals
 
 container_name=nacos
 image=nacos/nacos-server:v2.1.2-slim
+db=nacos_devtest
 
 while getopts :f OPT ; do
   case $OPT in
@@ -40,7 +41,6 @@ docker run -d \
   -p 9576:9555 \
   --network "$G_MYSQL_NETWORK" \
   --network-alias "$G_NACOS_ALIAS" \
-  -e PREFER_HOST_MODE=hostname \
   -e MODE=standalone \
   -e SPRING_DATASOURCE_PLATFORM=mysql \
   -e MYSQL_SERVICE_HOST="$G_MYSQL8_ALIAS" \
