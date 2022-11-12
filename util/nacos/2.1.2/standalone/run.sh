@@ -36,9 +36,9 @@ assert_container_not_exist $container_name
 create_network_if_absent "$G_MYSQL_NETWORK"
 
 docker run -d \
-  -p 8869:8848 \
-  -p 9869:9848 \
-  -p 9576:9555 \
+  -p 8848:8848 \
+  -p 9848:9848 \
+  -p 9555:9555 \
   --network "$G_MYSQL_NETWORK" \
   --network-alias "$G_NACOS_ALIAS" \
   -e MODE=standalone \
