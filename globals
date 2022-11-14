@@ -118,4 +118,4 @@ G_MYSQL_USER=root
 # shellcheck disable=SC2034
 G_MYSQL_PASSWD=root
 # shellcheck disable=SC2034
-G_MYSQL8_PORT=3327
+G_MYSQL8_PORT=3306

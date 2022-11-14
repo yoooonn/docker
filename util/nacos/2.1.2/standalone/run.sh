@@ -36,9 +36,9 @@ assert_container_not_exist $container_name
 create_network_if_absent "$G_MYSQL_NETWORK"
 
 docker run -d \
-  -p 8869:8848 \
-  -p 9869:9848 \
-  -p 9576:9555 \
+  -p 8848:8848 \
+  -p 9848:9848 \
+  -p 9555:9555 \
   --network "$G_MYSQL_NETWORK" \
   --network-alias "$G_NACOS_ALIAS" \
   -e MODE=standalone \
@@ -47,7 +47,8 @@ docker run -d \
   -e MYSQL_SERVICE_PORT=3306 \
   -e MYSQL_SERVICE_USER="$G_MYSQL_USER" \
   -e MYSQL_SERVICE_PASSWORD="$G_MYSQL_PASSWD" \
-  -e MYSQL_SERVICE_DB_NAME=nacos_devtest \
+  -e MYSQL_SERVICE_DB_NAME="$db" \
+  -e "MYSQL_SERVICE_DB_PARAM=allowPublicKeyRetrieval=true&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false" \
   -v "$VOLUMES_DIR"/"$SH_DIR"/standalone-logs/:/home/nacos/logs \
   --name "$container_name" \
   "$image"

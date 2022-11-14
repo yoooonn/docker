@@ -20,6 +20,16 @@ source ./globals
 container_name=$G_MYSQL8_CONTAINER
 image=mysql:8.0
 
+while getopts :f OPT ; do
+  case $OPT in
+  f)
+    docker stop "$container_name" 1>/dev/null || exit 1
+    docker rm "$container_name" 1>/dev/null || exit 1
+    ;;
+  ?)
+  esac
+done
+
 assert_container_not_exist "$container_name"
 
 create_network_if_absent "$G_MYSQL_NETWORK"
