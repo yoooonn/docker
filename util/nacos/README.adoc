@@ -3,13 +3,17 @@ NOTE: ``nacos/nacos-server``提供了``PREFER_HOST_MODE``, 支持``hostname``和
 
 hostname和ip是一一对应的关系
 
+ip是host address
+hostname就是hostname
+所以host在不同语义下可以是前者也可是后者
+
 通过ip查hostname
 
 [source,bash,indent=0]
 ----
 nslookup <ip>
 
-# 执行后，会收到权威和非权威的应答
+# 执行后，会收到权威和非权威的结果
 ----
 
 通过hostname查ip
