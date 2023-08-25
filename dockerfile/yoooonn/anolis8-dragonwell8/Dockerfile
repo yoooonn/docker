@@ -9,6 +9,6 @@ RUN yum update -y \
 
 RUN yum install -y java-1.8.0-alibaba-dragonwell-headless-fastdebug.aarch64
 
-ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0-alibaba-dragonwell-1.8.0.352-2.an8.aarch64-fastdebug/jre"
+ENV JAVA_HOME="/usr"
 
 CMD ["/usr/sbin/init"]
