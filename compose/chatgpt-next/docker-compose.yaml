@@ -4,7 +4,6 @@ services:
     image: yidadaa/chatgpt-next-web:latest
     container_name: chatgpt-next-web
     environment:
-      - 'PROXY_URL=${PROXY_URL}'
       - 'BASE_URL=${BASE_URL}'
       - 'CODE=${PASSWD}'
       - 'OPENAI_API_KEY=${OPEN_API_KEY}'
