@@ -2,9 +2,13 @@ version: '3.9'
 services:
   chatgpt-next-web:
     image: yidadaa/chatgpt-next-web:latest
+    container_name: chatgpt-next-web
     environment:
       - 'PROXY_URL=${PROXY_URL}'
+      - 'BASE_URL=${BASE_URL}'
       - 'CODE=${PASSWD}'
       - 'OPENAI_API_KEY=${OPEN_API_KEY}'
+      - 'CUSTOM_MODELS=${CUSTOM_MODELS}'
     ports:
       - '3000:3000'
+    restart: always
