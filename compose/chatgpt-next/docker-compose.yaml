@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  chatgpt-next-web:
+    image: yidadaa/chatgpt-next-web:latest
+    environment:
+      - 'PROXY_URL=${PROXY_URL}'
+      - 'CODE=${PASSWD}'
+      - 'OPENAI_API_KEY=${OPEN_API_KEY}'
+    ports:
+      - '3000:3000'
